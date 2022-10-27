@@ -1,0 +1,48 @@
+<div class="container text-center">
+  <h1>{{title}}</h1>
+</div>
+<div class="container">
+  <div class="row">
+
+    <div class="form-check form-check-inline" *ngFor="let radiobutton of radioItems as $index">
+      <input class="form-check-input" type="radio" id="inlineCheckbox$index" value="{{radiobutton}}" name="options" (click)="clickAction(radiobutton)"
+      [checked]="radiobutton === model.option">
+      <label class="form-check-label" for="inlineCheckbox$index">{{radiobutton}}</label>
+    </div>
+   
+    <div *ngIf="showPlaceOption">
+      <div class="form-check form-check-inline" *ngFor="let place of placeItems as $index">
+        <input class="form-check-input" type="radio" id="inline2Checkbox$index" value="{{place}}" name="placeoptions" (click)="modelPlace.option = place"
+        [checked]="place === modelPlace.option">
+        <label class="form-check-label" for="inline2Checkbox$index">{{place}}</label>
+      </div>
+    </div>
+
+    <div *ngIf="!showPlaceOption">
+      <input class="form-control" class="form-control" type="text" name="Branch" [(ngModel)]="searchText" autocomplete="off"
+        placeholder="Branch name or ID">
+    </div>
+
+    <div><button class="btn btn-primary mb-3" (click)="loadData();">Search</button></div>
+
+  </div>
+
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>User Name</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of getUserDataResults | filter:searchText">
+          <td>{{user.id}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.country}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
